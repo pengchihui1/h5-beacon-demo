@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>定位演示</title>
+    <title>定位</title>
 
     <style type="text/css">
 
@@ -37,21 +37,24 @@
 
 <script>
 
-    // 示例建筑
-    var buildingID = "00230092";
-    var token = "863d1ae7abe841a492aee7204a5ae1c4";
-	
+    // buildingID: '00230092',
+    // 建筑有效token
+    // token: '863d1ae7abe841a492aee7204a5ae1c4',
+    // 五個位置的地圖
+    var buildingID = "ZS020227";
+    var token = "5d4dfa4205ba4e2283e782780e091236";
+
     //初始化地图
     var $map = new brtmap.Map({
         container: 'brtmap',
         token: token,
         buildingID: buildingID
     });
+    console.log('地圖',$map )
 
-
+    // 圖標
     let $locateMarker;
     $map.on('mapready', () => {
-
         $locateMarker = new brtmap.Symbol.Marker({
             url: 'https://map.brtbeacon.net/route/images/nav/locate.png',
             size: 0.8,
@@ -60,20 +63,19 @@
         }).addTo($map);
 
     });
-
-</script>
-
-<script>
-
+    console.log('圖標',$locateMarker);
+    
     // 定位实例化
     let $brtloc = new brtloc.Location({
         buildingID: buildingID,
         token: token,
         compassDelay: 100
     });
+    console.log('圖標',$brtloc);
 
     // 监听定位点
     $brtloc.on('location', point => {
+
         if (point) {
             $locateMarker.setLnglat(point, point.floor);
         }
@@ -85,6 +87,19 @@
             $locateMarker.setRotate(angle);
         }
     });
+
+    	
+    // 加载旋转
+    // $map.on('floorend',function(){
+    //     setTimeout(function(){
+    //     $map.easeTo({
+    //         pitch:50,
+    //         bearing:180,
+    //         zoom:19,
+    //         duration:2000
+    //     });
+    //     },1000);
+    // });
 
 </script>
 
