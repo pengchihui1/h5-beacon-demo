@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- ios10以下禁止雙擊縮放 -->
+    <meta
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
+      id="viewport"
+      name="viewport"
+    />
+		<style type="text/css">
+			html,
+			body,
+			#brtmap {
+				height: 100%;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+		</style>
+		
+		
+		<link rel="stylesheet" type="text/css" href="http://files.brtbeacon.net/BRTMap/3D/brtmap-2.2.0.css"/>
+		<script type="text/javascript" src="http://files.brtbeacon.net/BRTMap/3D/brtmap-2.2.0.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="brtmap-2.4.2.css"/>
+		<script type="text/javascript" src="brtmap-2.4.2.js"></script> -->
+		
+	</head>
+	
+	<body>
+		<div id="brtmap"></div>
+	</body>
+
+	<script type="text/javascript">
+		
+		var buildingID = "ZS020227";
+		
+		//初始化地图
+		var $map = new brtmap.Map({
+	        container: 'brtmap',
+					token:"5d4dfa4205ba4e2283e782780e091236",
+	        buildingID: buildingID
+	    });
+		
+		// mapready
+		$map.on('mapready',function(){
+			console.log('mapready -> $map ->', $map);
+		});
+		
+		
+		$map.on('floorend',function(){
+      	
+	        setTimeout(function(){
+	        	
+	          $map.easeTo({
+	            pitch:50,
+	            bearing:180,
+	            zoom:19,
+	            duration:2000
+	          });
+	          
+	        },1000);
+	        
+		});
+		
+		
+		</script>
+</html>
