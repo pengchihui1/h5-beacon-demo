@@ -78,34 +78,34 @@
 
     });
 
-    // var __handlerClick__ = function (e) {
+    var __handlerClick__ = function (e) {
 
-    //     if (!e._defaultPrevented) {
-    //         e._defaultPrevented = true;
+        if (!e._defaultPrevented) {
+            e._defaultPrevented = true;
 
-    //         // poi click
-    //         if (e.features && e.features.length) {
-    //             let poi = e.features[0].properties;
-    //             console.log('click poi ->', poi);
+            // poi click
+            if (e.features && e.features.length) {
+                let poi = e.features[0].properties;
+                console.log('click poi ->', poi);
 
-    //             // 标记
-    //             $marker.setLnglat($map.coordsToLnglat(poi.LABEL_X, poi.LABEL_Y));
+                // 标记
+                $marker.setLnglat($map.coordsToLnglat(poi.LABEL_X, poi.LABEL_Y));
 
-    //             // poi name
-    //             document.getElementById('poi').innerHTML = "name: " + poi.NAME;
+                // poi name
+                document.getElementById('poi').innerHTML = "name: " + poi.NAME;
 
-    //         }
-    //     }
-    // };
+            }
+        }
+    };
 
     // label click
-    // $map.on('click', 'label', __handlerClick__);
-    // // indoor click
-    // $map.on('click', 'indoor-fill', __handlerClick__);
-    // // room click
-    // $map.on('click', 'room-fill', __handlerClick__);
-    // // map click
-    // $map.on('click', __handlerClick__);
+    $map.on('click', 'label', __handlerClick__);
+    // indoor click
+    $map.on('click', 'indoor-fill', __handlerClick__);
+    // room click
+    $map.on('click', 'room-fill', __handlerClick__);
+    // map click
+    $map.on('click', __handlerClick__);
 
     // 定位实例化
       let $brtloc = new brtloc.Location({
