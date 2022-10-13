@@ -116,7 +116,6 @@
      // 监听定位点
      $brtloc.on('location', point => {
         if (point) {
-            alert('point')
             $marker.setLnglat(point, point.floor);
         }
     });
