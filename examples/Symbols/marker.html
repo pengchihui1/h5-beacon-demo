@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>添加标记</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #FFFFFF;
+            margin: 0 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #0099FF;
+        }
+
+        .btn.start {
+            background-color: #21B393;
+        }
+
+        .btn.start:hover {
+            background-color: #14c3a1;
+        }
+
+        .btn.end {
+            background-color: #FF3300;
+        }
+
+        .btn.end:hover {
+            background-color: #ff5d35;
+        }
+
+    </style>
+
+    <!--引入SDK-->
+    <link rel="stylesheet" type="text/css" href="https://map.brtbeacon.net/js-sdk/3.0/brtmap-2.5.0.css"/>
+    <script type="text/javascript" src="https://map.brtbeacon.net/js-sdk/3.0/brtmap-2.5.0.js"></script>
+
+</head>
+<body>
+<div id="brtmap" style="width: 100%; height: 100%"></div>
+</body>
+
+<script>
+
+    // 示例建筑
+    var buildingID = "00230092";
+    var token = "863d1ae7abe841a492aee7204a5ae1c4";
+
+    //初始化地图
+    var $map = new brtmap.Map({
+        container: 'brtmap',
+        token: token,
+        buildingID: buildingID
+    });
+
+    var $point, $popup, $startMarker, $endMarker;
+
+    $map.on('mapready', function () {
+
+        $startMarker = new brtmap.Symbol.Marker({
+            url: 'https://map.brtbeacon.net/js-sdk/3.0/images/start_marker.png',
+            size: 0.8,
+            offset: [0, -17]
+        }).addTo($map);
+
+        $endMarker = new brtmap.Symbol.Marker({
+            url: 'https://map.brtbeacon.net/js-sdk/3.0/images/end_marker.png',
+            size: 0.8,
+            offset: [0, -17]
+        }).addTo($map);
+
+    });
+
+    // click
+    $map.on('click', function (e) {
+
+        $point = $map.lnglatToCoords(e.lngLat);
+        $point.lng = e.lngLat.lng;
+        $point.lat = e.lngLat.lat;
+        $point.floor = $map.currentMapInfo.floorNumber;
+
+        $popup = new brtmap.Popup({closeButton: false})
+            .setLngLat(e.lngLat)
+            .setHTML("<a class='btn start' onclick='setStartPoint()'>设置起点</a><a class='btn end' onclick='setEndPoint()'>设置终点</a>")
+            .addTo($map);
+
+    });
+
+
+    function setStartPoint () {
+        $startMarker.setLnglat($point);
+        $popup.remove();
+    }
+
+    function setEndPoint() {
+        $endMarker.setLnglat($point);
+        $popup.remove();
+    }
+
+</script>
+
+</html>

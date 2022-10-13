@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>實時定位</title>
+    <title>获取POI信息</title>
 
     <style type="text/css">
 
@@ -38,9 +38,6 @@
     <!--引入SDK-->
     <link rel="stylesheet" type="text/css" href="https://map.brtbeacon.net/js-sdk/3.0/brtmap-2.5.0.css"/>
     <script type="text/javascript" src="https://map.brtbeacon.net/js-sdk/3.0/brtmap-2.5.0.js"></script>
-   
-    <!--H5 定位SDK-->
-   <script src="https://map.brtbeacon.net/js-sdk/geo/brtloc-3.3.2.js"></script>
 
 </head>
 <body>
@@ -54,8 +51,8 @@
 <script>
 
     // 示例建筑
-    var buildingID = "ZS020227";
-    var token = "5d4dfa4205ba4e2283e782780e091236";
+    var buildingID = "00230092";
+    var token = "863d1ae7abe841a492aee7204a5ae1c4";
 
     //初始化地图
     var $map = new brtmap.Map({
@@ -65,10 +62,10 @@
     });
 
     var $marker;
+
     $map.on('mapready', function () {
         $marker = new brtmap.Symbol.Marker({
-            // url: 'https://map.brtbeacon.net/js-sdk/3.0/images/marker.png',
-            url: 'https://map.brtbeacon.net/route/images/nav/locate.png',
+            url: 'https://map.brtbeacon.net/js-sdk/3.0/images/marker.png',
             size: 0.8,
             offset: [0, -20],
             type: 'map'
@@ -105,29 +102,6 @@
     $map.on('click', 'room-fill', __handlerClick__);
     // map click
     $map.on('click', __handlerClick__);
-
-    // 定位实例化
-      let $brtloc = new brtloc.Location({
-        buildingID: buildingID,
-        token: token,
-        compassDelay: 100
-    });
-
-     // 监听定位点
-     $brtloc.on('location', point => {
-        if (point) {
-            console.log("location",point)
-            $marker.setLnglat(point, point.floor);
-        }
-    });
-
-    // 指南针
-    $brtloc.on('compass', angle => {
-        if (angle) {
-            console.log("compass",angle)
-            $marker.setRotate(angle);
-        }
-    });
 
 </script>
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>地图初始化</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+    </style>
+
+    <!--引入SDK-->
+    <link rel="stylesheet" type="text/css" href="https://map.brtbeacon.net/js-sdk/3.0/brtmap-2.5.0.css"/>
+    <script type="text/javascript" src="https://map.brtbeacon.net/js-sdk/3.0/brtmap-2.5.0.js"></script>
+
+    <!--Gui-->
+    <script type="text/javascript" src="//map.brtbeacon.net/js-sdk/libs/dat.gui.js"></script>
+
+</head>
+<body>
+<div id="brtmap" style="width: 100%; height: 100%"></div>
+</body>
+
+<script>
+
+    // 示例建筑
+    var buildingID = "00230092";
+    var token = "863d1ae7abe841a492aee7204a5ae1c4";
+
+    //初始化地图
+    var $map = new brtmap.Map({
+        container: 'brtmap',
+        token: token,
+        buildingID: buildingID
+    });
+
+    // mapready
+    $map.on('mapready', function () {
+        console.log('mapready -> $map ->', $map);
+    });
+
+</script>
+
+<!--gui-->
+<script>
+
+    var $gui = new dat.GUI();
+
+    var params = {
+        'language': 'zh',
+        'background': '#FFFFFF',
+        'font size': 12,
+        'font color': '#333333',
+        'icon size': 0.32
+    };
+
+    // 语言
+    $gui.add(params, 'language', {'中文': 'zh', '英文': 'en'}).onChange(function () {
+        $map.setLanguage(params.language);
+    });
+
+    // 背景颜色
+    $gui.addColor(params, 'background').onChange(function () {
+        document.getElementById('brtmap').style.background =  params.background;
+    });
+
+    // 图标大小
+    $gui.add(params, 'icon size', 0.1, 2).onChange(function () {
+        $map.setFont('iconSize', params['icon size']);
+    });
+
+    // 文本大小
+    $gui.add(params, 'font size', 8, 20).onChange(function () {
+        $map.setFont('size', params['font size']);
+    });
+
+    // 文本颜色
+    $gui.addColor(params, 'font color').onChange(function () {
+        $map.setFont('color', params['font color']);
+    });
+
+</script>
+
+</html>
