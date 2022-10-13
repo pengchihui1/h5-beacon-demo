@@ -116,7 +116,7 @@
      // 监听定位点
      $brtloc.on('location', point => {
         if (point) {
-            console.log("location",point)
+            alert('point')
             $marker.setLnglat(point, point.floor);
         }
     });
@@ -124,7 +124,6 @@
     // 指南针
     $brtloc.on('compass', angle => {
         if (angle) {
-            console.log("compass",angle)
             $marker.setRotate(angle);
         }
     });
